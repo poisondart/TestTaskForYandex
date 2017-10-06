@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_translator"
+        android:enabled="true"
+        android:icon="@drawable/ic_translator"
+        android:title="@string/translation_item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_history_and_favorites"
+        android:enabled="true"
+        android:icon="@drawable/ic_history_and_favorites"
+        android:title="@string/history_and_favorites_item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings_item"
+        app:showAsAction="always" />
+</menu>

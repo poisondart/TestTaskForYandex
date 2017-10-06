@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">TestTaskForYandex</string>
+    <string name="query_hint">Нажмите, чтобы ввести текст</string>
+    <string name="result_hint">Здесь будет результат&#8230;</string>
+    <string name="menu_title">История/Избранное</string>
+    <string name="no_internet">Не получилось подключиться к серверу. Проверьте ваше подключение к сети&#8230;</string>
+
+    <!--Items for bottom menu -->
+    <string name="translation_item">Перевод</string>
+    <string name="history_and_favorites_item">История/Избранное</string>
+    <string name="settings_item">Настройки</string>
+    <string name="placeholder1">Переводчик</string>
+    <string name="placeholder2">История и Избранное</string>
+    <string name="placeholder3">Настройки</string>
+    <string name="placeholder_tabs1">История</string>
+    <string name="placeholder_tabs2">Избранное</string>
+    <string name="delete">Удалить всё</string>
+</resources>
