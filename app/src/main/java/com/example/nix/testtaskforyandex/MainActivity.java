@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import com.example.nix.testtaskforyandex.bottom_nav_fragments.HistoryAndFavFragment;
 import com.example.nix.testtaskforyandex.bottom_nav_fragments.SettingsFragment;
-import com.example.nix.testtaskforyandex.bottom_nav_fragments.TraslationFragment;
+import com.example.nix.testtaskforyandex.bottom_nav_fragments.TranslationFragment;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigationViewEx = (BottomNavigationViewEx)findViewById(R.id.bottom_navigation);
         mFragmentManager = getSupportFragmentManager();
         mFragment = mFragmentManager.findFragmentById(R.id.fragment_container);
-        mFragment = new TraslationFragment();
+        mFragment = new TranslationFragment();
         mFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, mFragment)
                 .commit();
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.action_translator:
-                        setFragment(new TraslationFragment());
+                        setFragment(new TranslationFragment());
                         break;
                     case R.id.action_history_and_favorites:
                         setFragment(new HistoryAndFavFragment());

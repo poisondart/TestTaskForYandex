@@ -9,10 +9,20 @@
     <string name="translation_item">Перевод</string>
     <string name="history_and_favorites_item">История/Избранное</string>
     <string name="settings_item">Настройки</string>
+    <!-- -->
     <string name="placeholder1">Переводчик</string>
     <string name="placeholder2">История и Избранное</string>
     <string name="placeholder3">Настройки</string>
     <string name="placeholder_tabs1">История</string>
     <string name="placeholder_tabs2">Избранное</string>
+    <!-- -->
     <string name="delete">Удалить всё</string>
+    <string name="request_textbox_hint">Нажмите, чтобы ввести текст</string>
+    <!-- Preferences Screen -->
+    <string name="cache_cath">Кэш</string>
+    <string name="about_cath">О программе</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="clear_fav">Очистить избранное</string>
+    <string name="about">Переводчик, использующий API Yandex</string>
+    <string name="about_summary">Автор: Никита Карпунин, 2017 год</string>
 </resources>

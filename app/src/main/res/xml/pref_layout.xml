@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/cache_cath">
+        <Preference
+            android:key="pref_clear_history"
+            android:title="@string/clear_history"/>
+        <Preference
+            android:key="pref_clear_fav"
+            android:title="@string/clear_fav"/>
+    </PreferenceCategory>
+<PreferenceCategory
+    android:title="@string/about_cath">
+    <Preference
+        android:key="about"
+        android:title="@string/about"
+        android:summary="@string/about_summary"/>
+</PreferenceCategory>
+</PreferenceScreen>

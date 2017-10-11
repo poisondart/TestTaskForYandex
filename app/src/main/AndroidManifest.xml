@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".FavAndHistActivity"
-            android:theme="@style/AppThemeSecond">
+            android:theme="@style/AppTheme">
         </activity>
     </application>
 
