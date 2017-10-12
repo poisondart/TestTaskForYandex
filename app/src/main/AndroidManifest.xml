@@ -16,8 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".FavAndHistActivity"
-            android:theme="@style/AppTheme">
+        <activity android:name=".CLHostActivity"
+                  android:theme="@style/AppTheme">
         </activity>
     </application>
 

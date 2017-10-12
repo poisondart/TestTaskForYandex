@@ -13,6 +13,8 @@
     <string name="placeholder1">Переводчик</string>
     <string name="placeholder2">История и Избранное</string>
     <string name="placeholder3">Настройки</string>
+    <string name="placeholder_l1">русский</string>
+    <string name="placeholder_l2">английский</string>
     <string name="placeholder_tabs1">История</string>
     <string name="placeholder_tabs2">Избранное</string>
     <!-- -->

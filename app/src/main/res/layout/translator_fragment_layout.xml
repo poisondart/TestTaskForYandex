@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorGrey">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -12,24 +11,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
-            <Spinner
-                android:id="@+id/f_language"
+            <Button
+                android:id="@+id/f_lan_button"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-            </Spinner>
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:drawableRight="@drawable/ic_arrow_down"
+                android:background="@color/colorPrimary"
+                android:text="@string/placeholder_l1"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="@color/colorWhite"/>
             <ImageButton
                 android:layout_width="52dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_switch_languages"
                 android:background="@color/colorPrimary"/>
-
-            <Spinner
-                android:id="@+id/s_language"
+            <Button
+                android:id="@+id/s_lan_button"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-            </Spinner>
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:drawableRight="@drawable/ic_arrow_down"
+                android:background="@color/colorPrimary"
+                android:text="@string/placeholder_l2"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="@color/colorWhite"/>
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
     <RelativeLayout
