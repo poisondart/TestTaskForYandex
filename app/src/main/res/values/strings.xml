@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">TestTaskForYandex</string>
+    <string name="choose_lang_title">Выбор языка</string>
     <string name="query_hint">Нажмите, чтобы ввести текст</string>
     <string name="result_hint">Здесь будет результат&#8230;</string>
     <string name="menu_title">История/Избранное</string>
@@ -27,4 +28,9 @@
     <string name="clear_fav">Очистить избранное</string>
     <string name="about">Переводчик, использующий API Yandex</string>
     <string name="about_summary">Автор: Никита Карпунин, 2017 год</string>
+    <!-- Preferences Constants-->
+    <string name="f_lang">first_lang</string>
+    <string name="s_lang">s_lang</string>
+    <string name="f_lang_code">first_lang_code</string>
+    <string name="s_lang_code">s_lang_code</string>
 </resources>

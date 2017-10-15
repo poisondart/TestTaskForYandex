@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
         mFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, mFragment)
                 .commit();
-        mBottomNavigationViewEx.setIconSize(30.0f, 30.0f);
+        mBottomNavigationViewEx.setIconSize(26.0f, 26.0f);
         mBottomNavigationViewEx.setTextVisibility(false);
-        mBottomNavigationViewEx.enableAnimation(false);
+        mBottomNavigationViewEx.enableAnimation(true);
         mBottomNavigationViewEx.enableShiftingMode(false);
         mBottomNavigationViewEx.enableItemShiftingMode(false);
         mBottomNavigationViewEx.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

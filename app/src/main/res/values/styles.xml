@@ -14,7 +14,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+    <style name="ChooseLangButton" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:drawableEnd">@drawable/ic_arrow_down</item>
+        <item name="android:drawableRight">@drawable/ic_arrow_down</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:layout_width">135dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
     <style name="Divider">
