@@ -24,7 +24,7 @@ public class Preferences {
         return sSharedPreferences.getString(context.getString(R.string.f_lang_code), "ru");
     }
     public static String getSecondLanguageCode(Context context){
-        return sSharedPreferences.getString(context.getString(R.string.s_lang), "en");
+        return sSharedPreferences.getString(context.getString(R.string.s_lang_code), "en");
     }
     public static void setFirstLanguage(Context context, String lang){
         sEditor = sSharedPreferences.edit();
@@ -45,5 +45,13 @@ public class Preferences {
         sEditor = sSharedPreferences.edit();
         sEditor.putString(context.getString(R.string.s_lang_code), lang);
         sEditor.apply();
+    }
+    public static void switchLangs(Context context){
+        String misc_name = getFirstLanguage(context);
+        String misc_code = getFirstLanguageCode(context);
+        setFirstLanguage(context, getSecondLanguage(context));
+        setFirstLanguageCode(context, getSecondLanguageCode(context));
+        setSecondLanguage(context, misc_name);
+        setSecondLanguageCode(context, misc_code);
     }
 }

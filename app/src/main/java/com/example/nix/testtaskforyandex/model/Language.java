@@ -9,7 +9,6 @@ package com.example.nix.testtaskforyandex.model;
 public class Language {
     private String mCode;
     private String mName;
-    private boolean mIsChecked;
     public Language(String name, String code) {
         mName = name;
         mCode = code;
@@ -31,11 +30,4 @@ public class Language {
         mName = name;
     }
 
-    public boolean isChecked() {
-        return mIsChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        mIsChecked = checked;
-    }
 }

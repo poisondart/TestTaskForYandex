@@ -40,11 +40,22 @@ public class LangAdapter extends RecyclerView.Adapter<LangAdapter.LangViewHolder
             @Override
             public void onClick(View view) {
                 if(mType.equals(CLHostActivity.FIRST_LANGUAGE_CHOOSE)){
-                    Preferences.setFirstLanguage(mContext, mLanguageList.get(holder.getAdapterPosition()).getName());
-                    Preferences.setFirstLanguageCode(mContext, mLanguageList.get(holder.getAdapterPosition()).getCode());
-                }else {
-                    Preferences.setSecondLanguage(mContext, mLanguageList.get(holder.getAdapterPosition()).getName());
-                    Preferences.setSecondLanguageCode(mContext, mLanguageList.get(holder.getAdapterPosition()).getCode());
+                    if (Preferences.getSecondLanguageCode(mContext)
+                            .equals(mLanguageList.get(holder.getAdapterPosition()).getCode())){
+                        Preferences.switchLangs(mContext);
+                    }else{
+                        Preferences.setFirstLanguage(mContext, mLanguageList.get(holder.getAdapterPosition()).getName());
+                        Preferences.setFirstLanguageCode(mContext, mLanguageList.get(holder.getAdapterPosition()).getCode());
+                    }
+                }
+                if (mType.equals(CLHostActivity.SECOND_LANGUAGE_CHOOSE)){
+                    if(Preferences.getFirstLanguageCode(mContext)
+                            .equals(mLanguageList.get(holder.getAdapterPosition()).getCode())){
+                        Preferences.switchLangs(mContext);
+                    }else{
+                        Preferences.setSecondLanguage(mContext, mLanguageList.get(holder.getAdapterPosition()).getName());
+                        Preferences.setSecondLanguageCode(mContext, mLanguageList.get(holder.getAdapterPosition()).getCode());
+                    }
                 }
                 ((Activity)mContext).finish();
             }

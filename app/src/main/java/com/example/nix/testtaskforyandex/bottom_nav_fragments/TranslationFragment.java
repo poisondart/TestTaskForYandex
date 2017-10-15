@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.example.nix.testtaskforyandex.CLHostActivity;
 import com.example.nix.testtaskforyandex.Preferences;
 import com.example.nix.testtaskforyandex.R;
@@ -21,6 +23,7 @@ import com.example.nix.testtaskforyandex.R;
 public class TranslationFragment extends Fragment implements View.OnClickListener{
     private Button mFirstLanguageButton, mSecondLanguageButton;
     private ImageButton mSwitchLanguageButton;
+    private TextView mTextView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
         mFirstLanguageButton = (Button)v.findViewById(R.id.f_lan_button);
         mSecondLanguageButton = (Button)v.findViewById(R.id.s_lan_button);
         mSwitchLanguageButton = (ImageButton)v.findViewById(R.id.switch_lang);
+        mTextView = (TextView)v.findViewById(R.id.textview_request);
         mFirstLanguageButton.setOnClickListener(this);
         mSecondLanguageButton.setOnClickListener(this);
         mSwitchLanguageButton.setOnClickListener(this);
@@ -48,7 +52,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                 startActivity(intent);
                 break;
             case R.id.switch_lang:
-                switchLang(getContext());
+                Preferences.switchLangs(getContext());
                 updateUI();
                 break;
         }
@@ -56,19 +60,12 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
     private void updateUI(){
         mFirstLanguageButton.setText(Preferences.getFirstLanguage(getContext()));
         mSecondLanguageButton.setText(Preferences.getSecondLanguage(getContext()));
+        mTextView.setText(Preferences.getFirstLanguageCode(getContext()) + "-" + Preferences.getSecondLanguageCode(getContext()));
     }
 
     @Override
     public void onResume() {
         super.onResume();
         updateUI();
-    }
-    private void switchLang(Context context){
-        String misc_name = Preferences.getFirstLanguage(context);
-        String misc_code = Preferences.getFirstLanguageCode(context);
-        Preferences.setFirstLanguage(context, Preferences.getSecondLanguage(context));
-        Preferences.setFirstLanguageCode(context, Preferences.getSecondLanguageCode(context));
-        Preferences.setSecondLanguage(context, misc_name);
-        Preferences.setSecondLanguageCode(context, misc_code);
     }
 }
