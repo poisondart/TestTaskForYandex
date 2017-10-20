@@ -39,11 +39,9 @@
                 android:background="@color/colorWhite"
                 android:textColor="@color/colorDarkGrey"/>
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
+                style="@style/Divider"
                 android:id="@+id/divider"
-                android:layout_below="@+id/textview_request"
-                android:background="@android:color/darker_gray"/>
+                android:layout_below="@+id/textview_request"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="42dp"

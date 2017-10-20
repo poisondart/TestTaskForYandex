@@ -19,6 +19,9 @@
         <activity android:name=".CLHostActivity"
                   android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".TextInputActivityHost"
+                  android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

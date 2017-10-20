@@ -2,8 +2,9 @@
     <string name="app_name">TestTaskForYandex</string>
     <string name="choose_lang_title">Выбор языка</string>
     <string name="query_hint">Нажмите, чтобы ввести текст</string>
-    <string name="result_hint">Здесь будет результат&#8230;</string>
+    <string name="edittext_hint">Вводите текст</string>
     <string name="menu_title">История/Избранное</string>
+    <string name="translate_text">ПЕРЕВЕСТИ</string>
     <string name="no_internet">Не получилось подключиться к серверу. Проверьте ваше подключение к сети&#8230;</string>
 
     <!--Items for bottom menu -->
@@ -28,6 +29,7 @@
     <string name="clear_fav">Очистить избранное</string>
     <string name="about">Переводчик, использующий API Yandex</string>
     <string name="about_summary">Автор: Никита Карпунин, 2017 год</string>
+    <string name="license">Лицензии</string>
     <!-- Preferences Constants-->
     <string name="f_lang">first_lang</string>
     <string name="s_lang">s_lang</string>
