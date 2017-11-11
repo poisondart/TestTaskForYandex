@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public class LangAdapter extends RecyclerView.Adapter<LangAdapter.LangViewHolder> {
-    List<Language> mLanguageList;
+    private List<Language> mLanguageList;
     private Context mContext;
     private Byte mType;
 

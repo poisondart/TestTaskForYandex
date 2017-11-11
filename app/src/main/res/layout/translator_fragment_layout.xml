@@ -31,7 +31,7 @@
         android:layout_marginTop="?attr/actionBarSize">
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="100dp"
                 android:text="@string/request_textbox_hint"
                 android:gravity="center"
                 android:id="@+id/textview_request"
@@ -83,18 +83,12 @@
                     android:layout_marginStart="18dp"/>
             </RelativeLayout>
             <android.support.v7.widget.RecyclerView
+                android:layout_below="@+id/tools_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recyclerview_results"
-                android:layout_below="@+id/tools_frame"
                 android:layout_margin="6dp"
+                android:id="@+id/recyclerview_results"
                 android:background="@color/colorWhite"
                 android:elevation="2dp"/>
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:id="@+id/progrss_bar"
-            android:visibility="gone"/>
         </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
