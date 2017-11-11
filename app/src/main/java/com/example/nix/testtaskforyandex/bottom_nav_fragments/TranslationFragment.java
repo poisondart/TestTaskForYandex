@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.nix.testtaskforyandex.CLHostActivity;
@@ -40,12 +40,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TranslationFragment extends Fragment implements View.OnClickListener{
     private Button mFirstLanguageButton, mSecondLanguageButton;
-    private ImageButton mSwitchLanguageButton, mDeleteTextButton;
-    private TextView mTextView;
+    private ImageButton mSwitchLanguageButton, mDeleteTextButton, mToFavButton;
+    private TextView mTextView, mResultView;
+    private ProgressBar mProgressBar;
     private String mString = "";
     private RecyclerView mRecyclerView;
     private ResultsAdapter mAdapter;
-    private ArrayList<String> mResultsExample;
+    private ArrayList<String> mShortHistory;
     private Result mResult;
     private Gson mGson;
     private Retrofit mRetrofit;
@@ -56,15 +57,18 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.translator_fragment_layout, container, false);
         Preferences.initialize(getContext());
-        mResultsExample = new ArrayList<>();
+        mShortHistory = new ArrayList<>();
         mFirstLanguageButton = (Button)v.findViewById(R.id.f_lan_button);
         mSecondLanguageButton = (Button)v.findViewById(R.id.s_lan_button);
         mSwitchLanguageButton = (ImageButton)v.findViewById(R.id.switch_lang);
         mDeleteTextButton = (ImageButton) v.findViewById(R.id.delete_text_button);
+        mProgressBar = (ProgressBar) v.findViewById(R.id.progressbar);
+        mToFavButton = (ImageButton) v.findViewById(R.id.button_to_fav);
         mRecyclerView = (RecyclerView)v.findViewById(R.id.recyclerview_results);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mTextView = (TextView)v.findViewById(R.id.textview_request);
         mTextView.setText(R.string.query_hint);
+        mResultView = (TextView) v.findViewById(R.id.textview_result);
         mFirstLanguageButton.setOnClickListener(this);
         mSecondLanguageButton.setOnClickListener(this);
         mSwitchLanguageButton.setOnClickListener(this);
@@ -78,7 +82,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                 .build();
         mAPI = mRetrofit.create(YandexTranslateAPI.class);
 
-        mAdapter = new ResultsAdapter(mResultsExample);
+        mAdapter = new ResultsAdapter(mShortHistory);
         mRecyclerView.setAdapter(mAdapter);
 
         return v;
@@ -102,8 +106,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                 updateUI();
                 break;
             case R.id.delete_text_button:
-                mString = "";
-                mTextView.setText(R.string.query_hint);
+                clearAll();
                 break;
             case R.id.textview_request:
                 intent = TextInputActivityHost.newIntent(context, mString, Preferences.getFirstLanguage(context));
@@ -112,6 +115,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
         }
     }
     private void updateUI(){
+        /*переписать - здесь лишнее выполнение кода*/
         mFirstLanguageButton.setText(Preferences.getFirstLanguage(getContext()));
         mSecondLanguageButton.setText(Preferences.getSecondLanguage(getContext()));
         if(mString.length() > 0){
@@ -128,6 +132,11 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
         updateUI();
     }
 
+    private void clearAll(){
+        mString = "";
+        mTextView.setText(R.string.query_hint);
+        mResultView.setText(R.string.result_hint);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) {
@@ -147,6 +156,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
 
     private void setResults(String string){
         String lang = Preferences.getFirstLanguageCode(getContext()) + "-" + Preferences.getSecondLanguageCode(getContext());
+        mProgressBar.setVisibility(View.VISIBLE);
         mAPI.getResult(Constants.API_KEY, string, lang).enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
@@ -154,21 +164,26 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                 if(mResult == null){
                     Log.d("mResult.getText()", " is null");
                 }else{
-                    mResultsExample.addAll(mResult.getText());
+                    mShortHistory.add(mString.concat(" - ").concat(mResult.getText().get(0)));
+                    mResultView.setText(mResult.getText().get(0));
                     Log.d("Code: ", mResult.getCode().toString());
                     Log.d("Lang: ", mResult.getLang());
                     for(String st : mResult.getText()){
                         Log.d("Text: ", st);
                     }
                 }
+                mProgressBar.setVisibility(View.INVISIBLE);
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
+                /*заменить тост на снэкбар с предолжением повторить снова*/
                 Log.d("onFailure","An error occurred during networking");
                 Toast.makeText(getContext(), R.string.no_internet, Toast.LENGTH_SHORT).show();
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
+
 }

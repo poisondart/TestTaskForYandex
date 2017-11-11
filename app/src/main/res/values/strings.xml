@@ -5,7 +5,9 @@
     <string name="edittext_hint">Вводите текст</string>
     <string name="menu_title">История/Избранное</string>
     <string name="translate_text">ПЕРЕВЕСТИ</string>
+    <string name="result_hint">Здесь будет результат</string>
     <string name="no_internet">Не получилось подключиться к серверу. Проверьте ваше подключение к сети&#8230;</string>
+    <string name="before_textview">Ранее</string>
 
     <!--Items for bottom menu -->
     <string name="translation_item">Перевод</string>

@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 /**
  * Created by Nix on 15.10.2017.
  */
-
+/*придумать что-то новое, это как-то не очень*/
 public class Preferences {
     private static SharedPreferences sSharedPreferences;
     private static SharedPreferences.Editor sEditor;

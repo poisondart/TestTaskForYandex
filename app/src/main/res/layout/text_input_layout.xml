@@ -32,12 +32,12 @@
         </LinearLayout>
         <View
             style="@style/Divider"
-            android:id="@+id/divider"
+            android:id="@+id/progressbar"
             android:layout_below="@+id/lin"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:layout_below="@+id/divider">
+            android:layout_below="@+id/progressbar">
             <Button
                 android:id="@+id/translate_button"
                 android:layout_width="wrap_content"
