@@ -29,70 +29,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/request_textbox_hint"
-                android:padding="16dp"
-                android:id="@+id/textview_request"
-                android:textSize="18sp"
-                android:background="@color/colorWhite"
-                android:textColor="@color/colorDarkGrey"/>
-            <ProgressBar
-                android:id="@+id/progressbar"
-                android:layout_width="match_parent"
-                android:indeterminate="true"
-                android:visibility="invisible"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:indeterminateDrawable="@drawable/custom_progressbar"
-                android:layout_height="2dp"
-                android:layout_below="@+id/textview_request"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_below="@+id/progressbar"
+                android:layout_height="110dp"
                 android:id="@+id/tools_frame"
                 android:background="@color/colorWhite"
                 android:elevation="2dp">
-                <ImageButton
-                android:layout_width="55dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/delete_text_button"
-                android:src="@drawable/ic_delete_text"
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="18dp"
-                android:layout_marginEnd="18dp"/>
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/request_textbox_hint"
+                    android:layout_marginRight="56dp"
+                    android:layout_marginEnd="56dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:id="@+id/textview_request"
+                    android:textSize="18sp"
+                    android:background="@color/colorWhite"
+                    android:textColor="@color/colorDarkGrey"/>
                 <ImageButton
                     android:layout_width="55dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/determ_lang"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_determine_lang"
-                    android:background="?android:attr/selectableItemBackground"
-                    />
-
-                <ImageButton
-                    android:layout_width="55dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:id="@+id/voice_text_button"
-                    android:src="@drawable/ic_voice_input"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginStart="18dp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:id="@+id/delete_text_button"
+                    android:src="@drawable/ic_delete_text"
+                    android:background="?android:attr/selectableItemBackground"/>
+                <ProgressBar
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:id="@+id/progressbar"
+                    android:visibility="invisible"
+                    android:layout_below="@+id/delete_text_button"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="12dp"/>
             </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/tools_frame"
             android:layout_margin="6dp"
-            android:background="@color/colorWhite">
+            android:background="@color/colorWhite"
+            android:elevation="2dp">
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/result_field"
@@ -104,14 +87,14 @@
                     android:id="@+id/textview_result"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
+                    android:layout_margin="16dp"
                     android:textSize="16sp"
                     android:text="@string/result_hint"
                     android:layout_weight="8"/>
                 <ImageButton
                     android:id="@+id/button_to_fav"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
+                    android:layout_width="22dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
                     android:src="@drawable/ic_to_fav_unchecked"/>
@@ -128,10 +111,9 @@
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/before"
-                android:id="@+id/recyclerview_results"
-                android:elevation="2dp"/>
+                android:id="@+id/recyclerview_results"/>
         </RelativeLayout>
-        </RelativeLayout>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -3,10 +3,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorWhite">
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:id="@+id/history_tab_recyclerview"/>
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/placeholder_hist"
     android:layout_centerInParent="true"
-    android:text="@string/placeholder_tabs1"
+    android:text="@string/placeholder_hist_tab"
+    android:visibility="invisible"
     android:textColor="@color/colorDarkGrey"/>
 </RelativeLayout>
