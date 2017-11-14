@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.example.nix.testtaskforyandex.HistoryItemAdapter;
+import com.example.nix.testtaskforyandex.LocalBDItemAdapter;
 import com.example.nix.testtaskforyandex.R;
-import com.example.nix.testtaskforyandex.model.HistoryItem;
+import com.example.nix.testtaskforyandex.model.LocalBDItem;
 import java.util.ArrayList;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -23,8 +23,8 @@ import io.realm.RealmResults;
 public class HistoryFragment extends Fragment {
     private TextView mInfoView;
     private RecyclerView mRecyclerView;
-    private HistoryItemAdapter mHistoryItemAdapter;
-    private ArrayList<HistoryItem> mHistoryItems;
+    private LocalBDItemAdapter mHistoryItemAdapter;
+    private ArrayList<LocalBDItem> mHistoryItems;
     private Realm mRealm;
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -45,14 +45,15 @@ public class HistoryFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.history_tab_recyclerview);
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mHistoryItemAdapter = new HistoryItemAdapter(mHistoryItems);
+        mHistoryItemAdapter = new LocalBDItemAdapter(mHistoryItems);
         mRecyclerView.setAdapter(mHistoryItemAdapter);
         return v;
     }
 
-    private ArrayList<HistoryItem> getItemsFromRealms(Realm realm){
-        RealmResults<HistoryItem> results = realm.where(HistoryItem.class).findAll();
-        ArrayList<HistoryItem> arrayList = new ArrayList<>();
+    private ArrayList<LocalBDItem> getItemsFromRealms(Realm realm){
+        RealmResults<LocalBDItem> results = realm.where(LocalBDItem.class)
+                .equalTo(LocalBDItem.IS_HISTORY, true).findAll();
+        ArrayList<LocalBDItem> arrayList = new ArrayList<>();
         arrayList.addAll(results);
         return arrayList;
     }

@@ -3,10 +3,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorWhite">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fav_tab_recyclerview"
+        android:paddingTop="16dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/placeholder_tabs2"
+        android:visibility="invisible"
+        android:id="@+id/placeholder_fav"
+        android:text="@string/placeholder_fav_tab"
         android:textColor="@color/colorDarkGrey"/>
 </RelativeLayout>

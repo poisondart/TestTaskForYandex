@@ -7,7 +7,14 @@ import io.realm.annotations.Required;
  * Created by Nix on 12.11.2017.
  */
 
-public class HistoryItem extends RealmObject {
+public class LocalBDItem extends RealmObject {
+
+    /**/
+    public static final String IS_HISTORY= "mIsHistory";
+    public static final String IS_FAVORITES = "mIsFavorite";
+    public static final String SOURCE_PROPERTY = "mSource";
+    /**/
+
     @Required
     private String mSource;
     @Required
@@ -17,16 +24,13 @@ public class HistoryItem extends RealmObject {
     @Required
     private String mSCode;
 
-    public HistoryItem() {
-    }
+    private boolean mIsHistory = true;
+    private boolean mIsFavorite = false;
 
-    public HistoryItem(String source, String result, String FCode, String SCode) {
-        mSource = source;
-        mResult = result;
-        mFCode = FCode;
-        mSCode = SCode;
-    }
 
+    public LocalBDItem() {
+
+    }
     public String getSource() {
         return mSource;
     }
@@ -57,5 +61,21 @@ public class HistoryItem extends RealmObject {
 
     public void setSCode(String SCode) {
         mSCode = SCode;
+    }
+
+    public boolean isHistory() {
+        return mIsHistory;
+    }
+
+    public void setHistory(boolean history) {
+        mIsHistory = history;
+    }
+
+    public boolean isFavorite() {
+        return mIsFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        mIsFavorite = favorite;
     }
 }

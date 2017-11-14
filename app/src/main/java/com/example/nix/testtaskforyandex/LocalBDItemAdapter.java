@@ -5,20 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.nix.testtaskforyandex.model.HistoryItem;
-
+import com.example.nix.testtaskforyandex.model.LocalBDItem;
 import java.util.ArrayList;
 
 /**
  * Created by Nix on 02.11.2017.
  */
 
-public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.HistoryViewHolder> {
+public class LocalBDItemAdapter extends RecyclerView.Adapter<LocalBDItemAdapter.HistoryViewHolder> {
 
-    private ArrayList<HistoryItem> mItems;
+    private ArrayList<LocalBDItem> mItems;
 
-    public HistoryItemAdapter(ArrayList<HistoryItem> items) {
+    public LocalBDItemAdapter(ArrayList<LocalBDItem> items) {
         mItems = items;
     }
 

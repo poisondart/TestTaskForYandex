@@ -19,12 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.nix.testtaskforyandex.CLHostActivity;
 import com.example.nix.testtaskforyandex.Constants;
-import com.example.nix.testtaskforyandex.HistoryItemAdapter;
+import com.example.nix.testtaskforyandex.LocalBDItemAdapter;
 import com.example.nix.testtaskforyandex.Preferences;
 import com.example.nix.testtaskforyandex.R;
 import com.example.nix.testtaskforyandex.TextInputActivityHost;
 import com.example.nix.testtaskforyandex.YandexTranslateAPI;
-import com.example.nix.testtaskforyandex.model.HistoryItem;
+import com.example.nix.testtaskforyandex.model.LocalBDItem;
 import com.example.nix.testtaskforyandex.model.Result;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -49,8 +49,8 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
     private String mString = "";
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
-    private HistoryItemAdapter mAdapter;
-    private ArrayList<HistoryItem> mHistoryItems;
+    private LocalBDItemAdapter mAdapter;
+    private ArrayList<LocalBDItem> mHistoryItems;
     private Result mResult;
     private Gson mGson;
     private Retrofit mRetrofit;
@@ -92,6 +92,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
         mSwitchLanguageButton.setOnClickListener(this);
         mDeleteTextButton.setOnClickListener(this);
         mTextView.setOnClickListener(this);
+        mToFavButton.setOnClickListener(this);
 
         mGson = new GsonBuilder().create();
         mRetrofit = new Retrofit.Builder()
@@ -100,7 +101,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                 .build();
         mAPI = mRetrofit.create(YandexTranslateAPI.class);
 
-        mAdapter = new HistoryItemAdapter(mHistoryItems);
+        mAdapter = new LocalBDItemAdapter(mHistoryItems);
         mRecyclerView.setAdapter(mAdapter);
 
         return v;
@@ -125,6 +126,19 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.delete_text_button:
                 clearAll();
+                break;
+            case R.id.button_to_fav:
+                if(!mString.isEmpty()){
+                    RealmResults<LocalBDItem> items = mRealm.where(LocalBDItem.class)
+                            .equalTo(LocalBDItem.SOURCE_PROPERTY, mString).findAll();
+                    mRealm.beginTransaction();
+                    for(int i = 0; i < items.size(); i++){
+                        items.get(i).setFavorite(true);
+                    }
+                    mRealm.commitTransaction();
+                }else{
+                    Toast.makeText(getContext(), R.string.translate_the_word, Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.textview_request:
                 intent = TextInputActivityHost.newIntent(context, mString, Preferences.getFirstLanguage(context));
@@ -190,13 +204,13 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                     writeInLog(mResult);
 
                     mRealm.beginTransaction();
-                    HistoryItem historyItem = mRealm.createObject(HistoryItem.class);
-                    historyItem.setSource(mString);
-                    historyItem.setResult(result);
-                    historyItem.setFCode(flang_code);
-                    historyItem.setSCode(slang_code);
+                    LocalBDItem item = mRealm.createObject(LocalBDItem.class);
+                    item.setSource(mString);
+                    item.setResult(result);
+                    item.setFCode(flang_code);
+                    item.setSCode(slang_code);
                     mRealm.commitTransaction();
-                    mHistoryItems.add(historyItem);
+                    mHistoryItems.add(item);
                     mAdapter.notifyDataSetChanged();
                     mLinearLayoutManager.scrollToPosition(mHistoryItems.size() - 1);
                 }
@@ -222,9 +236,10 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private ArrayList<HistoryItem> getItemsFromRealms(Realm realm){
-        RealmResults<HistoryItem> results = realm.where(HistoryItem.class).findAll();
-        ArrayList<HistoryItem> arrayList = new ArrayList<>();
+    private ArrayList<LocalBDItem> getItemsFromRealms(Realm realm){
+        RealmResults<LocalBDItem> results = realm.where(LocalBDItem.class)
+                .equalTo(LocalBDItem.IS_HISTORY, true).findAll();
+        ArrayList<LocalBDItem> arrayList = new ArrayList<>();
         arrayList.addAll(results);
         return arrayList;
     }
