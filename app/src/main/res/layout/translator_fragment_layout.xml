@@ -31,31 +31,50 @@
         android:layout_marginTop="?attr/actionBarSize">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/tools_frame"
                 android:background="@color/colorWhite"
                 android:elevation="2dp">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="55dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="@string/request_textbox_hint"
-                    android:layout_marginRight="56dp"
-                    android:layout_marginEnd="56dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_toStartOf="@+id/delete_text_button"
+                    android:layout_toLeftOf="@+id/delete_text_button"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp"
+                    android:paddingRight="8dp"
                     android:id="@+id/textview_request"
                     android:textSize="18sp"
                     android:background="@color/colorWhite"
                     android:textColor="@color/colorDarkGrey"/>
+                <View
+                    android:id="@+id/divider"
+                    style="@style/Divider"
+                    android:layout_marginTop="4dp"
+                    android:layout_below="@+id/textview_request"/>
+                <TextView
+                    android:id="@+id/textview_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/divider"
+                    android:layout_margin="16dp"
+                    android:textSize="16sp"
+                    android:layout_toStartOf="@+id/progressbar"
+                    android:layout_toLeftOf="@+id/progressbar"
+                    android:text="@string/result_hint"
+                    />
                 <ImageButton
                     android:layout_width="55dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:id="@+id/delete_text_button"
                     android:src="@drawable/ic_delete_text"
                     android:background="?android:attr/selectableItemBackground"/>
@@ -76,34 +95,10 @@
             android:layout_margin="6dp"
             android:background="@color/colorWhite"
             android:elevation="2dp">
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/result_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textview_result"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:textSize="16sp"
-                    android:text="@string/result_hint"
-                    android:layout_weight="8"/>
-                <ImageButton
-                    android:id="@+id/button_to_fav"
-                    android:layout_width="22dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_to_fav_unchecked"/>
-            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/before"
-                android:layout_below="@+id/result_field"
                 android:text="@string/before_textview"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold"

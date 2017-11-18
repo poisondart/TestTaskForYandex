@@ -30,6 +30,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmList;
+import io.realm.RealmModel;
 import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,14 +46,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TranslationFragment extends Fragment implements View.OnClickListener{
     private Button mFirstLanguageButton, mSecondLanguageButton;
-    private ImageButton mSwitchLanguageButton, mDeleteTextButton, mToFavButton;
+    private ImageButton mSwitchLanguageButton, mDeleteTextButton;
     private TextView mTextView, mResultView;
     private ProgressBar mProgressBar;
     private String mString = "";
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private LocalBDItemAdapter mAdapter;
-    private ArrayList<LocalBDItem> mHistoryItems;
+    private RealmResults<LocalBDItem> mHistoryItems;
     private Result mResult;
     private Gson mGson;
     private Retrofit mRetrofit;
@@ -76,7 +79,6 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
         mSwitchLanguageButton = (ImageButton)v.findViewById(R.id.switch_lang);
         mDeleteTextButton = (ImageButton) v.findViewById(R.id.delete_text_button);
         mProgressBar = (ProgressBar) v.findViewById(R.id.progressbar);
-        mToFavButton = (ImageButton) v.findViewById(R.id.button_to_fav);
         mRecyclerView = (RecyclerView)v.findViewById(R.id.recyclerview_results);
 
         mLinearLayoutManager = new LinearLayoutManager(getContext());
@@ -92,7 +94,6 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
         mSwitchLanguageButton.setOnClickListener(this);
         mDeleteTextButton.setOnClickListener(this);
         mTextView.setOnClickListener(this);
-        mToFavButton.setOnClickListener(this);
 
         mGson = new GsonBuilder().create();
         mRetrofit = new Retrofit.Builder()
@@ -101,7 +102,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                 .build();
         mAPI = mRetrofit.create(YandexTranslateAPI.class);
 
-        mAdapter = new LocalBDItemAdapter(mHistoryItems);
+        mAdapter = new LocalBDItemAdapter(mHistoryItems, mRealm);
         mRecyclerView.setAdapter(mAdapter);
 
         return v;
@@ -127,7 +128,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
             case R.id.delete_text_button:
                 clearAll();
                 break;
-            case R.id.button_to_fav:
+            /*case R.id.button_to_fav:
                 if(!mString.isEmpty()){
                     RealmResults<LocalBDItem> items = mRealm.where(LocalBDItem.class)
                             .equalTo(LocalBDItem.SOURCE_PROPERTY, mString).findAll();
@@ -139,7 +140,7 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                 }else{
                     Toast.makeText(getContext(), R.string.translate_the_word, Toast.LENGTH_LONG).show();
                 }
-                break;
+                break;*/
             case R.id.textview_request:
                 intent = TextInputActivityHost.newIntent(context, mString, Preferences.getFirstLanguage(context));
                 startActivityForResult(intent, REQUEST_CODE);
@@ -199,18 +200,31 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
                 if(mResult == null){
                     Log.d("mResult.getText()", " is null");
                 }else{
-                    String result = mResult.getText().get(0);
+                    final String result = mResult.getText().get(0);
                     mResultView.setText(result);
                     writeInLog(mResult);
-
-                    mRealm.beginTransaction();
+                    /*mRealm.beginTransaction();
                     LocalBDItem item = mRealm.createObject(LocalBDItem.class);
                     item.setSource(mString);
                     item.setResult(result);
                     item.setFCode(flang_code);
                     item.setSCode(slang_code);
-                    mRealm.commitTransaction();
-                    mHistoryItems.add(item);
+                    mRealm.commitTransaction();*/
+
+
+                    mRealm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            LocalBDItem item = mRealm.createObject(LocalBDItem.class);
+                            item.setSource(mString);
+                            item.setResult(result);
+                            item.setFCode(flang_code);
+                            item.setSCode(slang_code);
+                            mRealm.insertOrUpdate(item);
+                        }
+                    });
+
+
                     mAdapter.notifyDataSetChanged();
                     mLinearLayoutManager.scrollToPosition(mHistoryItems.size() - 1);
                 }
@@ -236,12 +250,19 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private ArrayList<LocalBDItem> getItemsFromRealms(Realm realm){
+    private RealmResults<LocalBDItem> getItemsFromRealms(Realm realm){
         RealmResults<LocalBDItem> results = realm.where(LocalBDItem.class)
                 .equalTo(LocalBDItem.IS_HISTORY, true).findAll();
-        ArrayList<LocalBDItem> arrayList = new ArrayList<>();
-        arrayList.addAll(results);
-        return arrayList;
+        return results;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mRealm.beginTransaction();
+        RealmList<LocalBDItem> items = new RealmList<>();
+        items.addAll(mHistoryItems);
+        mRealm.commitTransaction();
     }
 
     @Override

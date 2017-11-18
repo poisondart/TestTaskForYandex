@@ -22,7 +22,7 @@
     <string name="placeholder_tabs1">История</string>
     <string name="placeholder_tabs2">Избранное</string>
     <string name="placeholder_hist_tab">Здесь отображается история переводов</string>
-    <string name="placeholder_fav_tab">здесь отображаются избранные переводы</string>
+    <string name="placeholder_fav_tab">Здесь отображаются избранные переводы</string>
     <!-- -->
     <string name="delete">Удалить всё</string>
     <string name="request_textbox_hint">Нажмите, чтобы ввести текст</string>

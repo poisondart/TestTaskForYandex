@@ -6,15 +6,26 @@
               android:layout_height="wrap_content"
               android:orientation="horizontal">
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:id="@+id/to_fav_button"
+        android:src="@drawable/ic_to_fav_unchecked"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_centerVertical="true"/>
+
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/result"
     tools:text="Pancake"
-    android:layout_marginLeft="16dp"
-    android:layout_marginStart="16dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginStart="4dp"
     android:layout_toLeftOf="@+id/codes_view"
     android:layout_toStartOf="@+id/codes_view"
+    android:layout_toEndOf="@+id/to_fav_button"
+    android:layout_toRightOf="@+id/to_fav_button"
     android:layout_marginRight="16dp"
     android:layout_marginEnd="16dp"
     android:layout_marginTop="4dp"
@@ -26,10 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/result"
         android:id="@+id/source"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:layout_toLeftOf="@+id/codes_view"
         android:layout_toStartOf="@+id/codes_view"
+        android:layout_toEndOf="@+id/to_fav_button"
+        android:layout_toRightOf="@+id/to_fav_button"
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="4dp"

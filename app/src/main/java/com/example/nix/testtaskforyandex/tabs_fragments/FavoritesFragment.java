@@ -5,16 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.nix.testtaskforyandex.LocalBDItemAdapter;
 import com.example.nix.testtaskforyandex.R;
 import com.example.nix.testtaskforyandex.model.LocalBDItem;
-import java.util.ArrayList;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -27,7 +24,7 @@ public class FavoritesFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private Realm mRealm;
-    private ArrayList<LocalBDItem> mFavItems;
+    private RealmResults<LocalBDItem> mFavItems;
     private LocalBDItemAdapter mFavAdapter;
 
     @Override
@@ -47,17 +44,14 @@ public class FavoritesFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.fav_tab_recyclerview);
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mFavAdapter = new LocalBDItemAdapter(mFavItems);
+        mFavAdapter = new LocalBDItemAdapter(mFavItems, mRealm);
         mRecyclerView.setAdapter(mFavAdapter);
         return v;
     }
 
-    private ArrayList<LocalBDItem> getItemsFromRealms(Realm realm){
+    private RealmResults<LocalBDItem> getItemsFromRealms(Realm realm){
         RealmResults<LocalBDItem> results = realm.where(LocalBDItem.class)
                 .equalTo(LocalBDItem.IS_FAVORITES, true).findAll();
-        ArrayList<LocalBDItem> arrayList = new ArrayList<>();
-        arrayList.addAll(results);
-        Log.d("favs", Integer.toString(results.size()));
-        return arrayList;
+        return results;
     }
 }

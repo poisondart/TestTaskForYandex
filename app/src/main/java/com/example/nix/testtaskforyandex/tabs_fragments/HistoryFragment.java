@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.nix.testtaskforyandex.LocalBDItemAdapter;
 import com.example.nix.testtaskforyandex.R;
 import com.example.nix.testtaskforyandex.model.LocalBDItem;
-import java.util.ArrayList;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -24,7 +23,7 @@ public class HistoryFragment extends Fragment {
     private TextView mInfoView;
     private RecyclerView mRecyclerView;
     private LocalBDItemAdapter mHistoryItemAdapter;
-    private ArrayList<LocalBDItem> mHistoryItems;
+    private RealmResults<LocalBDItem> mHistoryItems;
     private Realm mRealm;
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -45,17 +44,15 @@ public class HistoryFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.history_tab_recyclerview);
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mHistoryItemAdapter = new LocalBDItemAdapter(mHistoryItems);
+        mHistoryItemAdapter = new LocalBDItemAdapter(mHistoryItems, mRealm);
         mRecyclerView.setAdapter(mHistoryItemAdapter);
         return v;
     }
 
-    private ArrayList<LocalBDItem> getItemsFromRealms(Realm realm){
+    private RealmResults<LocalBDItem> getItemsFromRealms(Realm realm){
         RealmResults<LocalBDItem> results = realm.where(LocalBDItem.class)
                 .equalTo(LocalBDItem.IS_HISTORY, true).findAll();
-        ArrayList<LocalBDItem> arrayList = new ArrayList<>();
-        arrayList.addAll(results);
-        return arrayList;
+        return results;
     }
 
 }
