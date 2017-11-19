@@ -7,13 +7,13 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/history_tab_recyclerview"/>
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/placeholder_hist"
-    android:layout_centerInParent="true"
-    android:text="@string/placeholder_hist_tab"
-    android:visibility="invisible"
-    android:textColor="@color/colorDarkGrey"/>
+        android:id="@+id/abstract_recyclerview"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:id="@+id/placeholder_abstract"
+        android:text="@string/placeholder_fav_tab"
+        android:textColor="@color/colorDarkGrey"/>
 </RelativeLayout>

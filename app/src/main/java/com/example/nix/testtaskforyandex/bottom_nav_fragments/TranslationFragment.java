@@ -28,11 +28,8 @@ import com.example.nix.testtaskforyandex.model.LocalBDItem;
 import com.example.nix.testtaskforyandex.model.Result;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.util.ArrayList;
+import javax.annotation.ParametersAreNonnullByDefault;
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
-import io.realm.RealmList;
-import io.realm.RealmModel;
 import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -128,19 +125,6 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
             case R.id.delete_text_button:
                 clearAll();
                 break;
-            /*case R.id.button_to_fav:
-                if(!mString.isEmpty()){
-                    RealmResults<LocalBDItem> items = mRealm.where(LocalBDItem.class)
-                            .equalTo(LocalBDItem.SOURCE_PROPERTY, mString).findAll();
-                    mRealm.beginTransaction();
-                    for(int i = 0; i < items.size(); i++){
-                        items.get(i).setFavorite(true);
-                    }
-                    mRealm.commitTransaction();
-                }else{
-                    Toast.makeText(getContext(), R.string.translate_the_word, Toast.LENGTH_LONG).show();
-                }
-                break;*/
             case R.id.textview_request:
                 intent = TextInputActivityHost.newIntent(context, mString, Preferences.getFirstLanguage(context));
                 startActivityForResult(intent, REQUEST_CODE);
@@ -188,52 +172,41 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
     }
 
     private void setResults(String string){
-        String lang_query = Preferences.getFirstLanguageCode(getContext()) + "-"
+        String langQuery = Preferences.getFirstLanguageCode(getContext()) + "-"
                 + Preferences.getSecondLanguageCode(getContext());
-        final String flang_code = Preferences.getFirstLanguageCode(getContext());
-        final String slang_code = Preferences.getSecondLanguageCode(getContext());
+        final String fLangCode = Preferences.getFirstLanguageCode(getContext());
+        final String sLangCode = Preferences.getSecondLanguageCode(getContext());
         mProgressBar.setVisibility(View.VISIBLE);
-        mAPI.getResult(Constants.API_KEY, string, lang_query).enqueue(new Callback<Result>() {
+        mAPI.getResult(Constants.API_KEY, string, langQuery).enqueue(new Callback<Result>() {
+            @ParametersAreNonnullByDefault
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
                 mResult = response.body();
-                if(mResult == null){
-                    Log.d("mResult.getText()", " is null");
-                }else{
+                if(mResult != null){
+                    writeInLog(mResult);
+                    if (handleErrors(mResult.getCode())) return;
                     final String result = mResult.getText().get(0);
                     mResultView.setText(result);
-                    writeInLog(mResult);
-                    /*mRealm.beginTransaction();
-                    LocalBDItem item = mRealm.createObject(LocalBDItem.class);
-                    item.setSource(mString);
-                    item.setResult(result);
-                    item.setFCode(flang_code);
-                    item.setSCode(slang_code);
-                    mRealm.commitTransaction();*/
-
-
                     mRealm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
                             LocalBDItem item = mRealm.createObject(LocalBDItem.class);
                             item.setSource(mString);
                             item.setResult(result);
-                            item.setFCode(flang_code);
-                            item.setSCode(slang_code);
+                            item.setFCode(fLangCode);
+                            item.setSCode(sLangCode);
                             mRealm.insertOrUpdate(item);
                         }
                     });
-
-
                     mAdapter.notifyDataSetChanged();
                     mLinearLayoutManager.scrollToPosition(mHistoryItems.size() - 1);
                 }
                 mProgressBar.setVisibility(View.INVISIBLE);
             }
 
+            @ParametersAreNonnullByDefault
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
-                /*заменить тост на снэкбар с предолжением повторить снова*/
                 Log.d("onFailure","An error occurred during networking");
                 Toast.makeText(getContext(), R.string.no_internet,
                         Toast.LENGTH_LONG).show();
@@ -251,18 +224,33 @@ public class TranslationFragment extends Fragment implements View.OnClickListene
     }
 
     private RealmResults<LocalBDItem> getItemsFromRealms(Realm realm){
-        RealmResults<LocalBDItem> results = realm.where(LocalBDItem.class)
+        return realm.where(LocalBDItem.class)
                 .equalTo(LocalBDItem.IS_HISTORY, true).findAll();
-        return results;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mRealm.beginTransaction();
-        RealmList<LocalBDItem> items = new RealmList<>();
-        items.addAll(mHistoryItems);
-        mRealm.commitTransaction();
+    private boolean handleErrors(int code){
+        switch (code){
+            case 401:
+                Toast.makeText(getContext(), R.string.false_API_key, Toast.LENGTH_LONG).show();
+                return true;
+            case 402:
+                Toast.makeText(getContext(), R.string.blocked_API_key, Toast.LENGTH_LONG).show();
+                return true;
+            case 404:
+                Toast.makeText(getContext(), R.string.day_limit, Toast.LENGTH_LONG).show();
+                return true;
+            case 413:
+                Toast.makeText(getContext(), R.string.text_limit, Toast.LENGTH_LONG).show();
+                return true;
+            case 422:
+                Toast.makeText(getContext(), R.string.unable_to_translate, Toast.LENGTH_LONG).show();
+                return true;
+            case 501:
+                Toast.makeText(getContext(), R.string.translate_is_not_supported, Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override

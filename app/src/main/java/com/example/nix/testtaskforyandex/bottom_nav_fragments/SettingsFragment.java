@@ -70,7 +70,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     }
 
     private void clearHistory(){
-        RealmResults<LocalBDItem> items = mRealm.where(LocalBDItem.class).findAll();
+        RealmResults<LocalBDItem> items = mRealm.where(LocalBDItem.class)
+                .equalTo(LocalBDItem.IS_HISTORY, true).findAll();
         if(!items.isEmpty()){
             mRealm.beginTransaction();
             for (LocalBDItem item : items){

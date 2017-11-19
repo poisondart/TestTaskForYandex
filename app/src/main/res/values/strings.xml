@@ -44,4 +44,13 @@
     <string name="s_lang">s_lang</string>
     <string name="f_lang_code">first_lang_code</string>
     <string name="s_lang_code">s_lang_code</string>
+
+    <!-- List of Errors-->
+    <string name="false_API_key">Неправильный API-ключ</string>
+    <string name="blocked_API_key">API-ключ заблокирован</string>
+    <string name="day_limit">Превышено суточное ограничение на объем переведенного текста</string>
+    <string name="text_limit">Превышен максимально допустимый размер текста</string>
+    <string name="unable_to_translate">Текст не может быть переведен</string>
+    <string name="translate_is_not_supported">Заданное направление перевода не поддерживается</string>
+    <!-- -->
 </resources>
